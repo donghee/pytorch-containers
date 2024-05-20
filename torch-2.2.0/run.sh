@@ -9,5 +9,5 @@ docker run -it \
     --gpus all \
     --env="DISPLAY" \
     --env="QT_X11_NO_MITSHM=1" \
-    ghcr.io/donghee/torch-2.2.0:cuda12.1
+    ghcr.io/donghee/torch-2.2.0:cuda12.1 \
     bash

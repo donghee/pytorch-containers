@@ -1,0 +1,4 @@
+jupyter
+tqdm
+networkx==2.8.8
+torch==2.0.0+cu117

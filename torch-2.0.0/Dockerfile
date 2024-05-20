@@ -62,11 +62,14 @@ RUN echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"'  >
 RUN echo 'eval "$(pyenv init -)"'  >> "$HOME/.bashrc"
 RUN echo 'eval "$(pyenv virtualenv-init -)"'  >> "$HOME/.bashrc"
 
+COPY ./requirements.txt /
+
 COPY ./entrypoint.sh /
 
 # Install torch 2.0.0+cu117
 # https://download.pytorch.org/whl/torch_stable.html
 RUN eval "$(pyenv init -)" && pyenv global $PYTHON_VERSION && python3 -m pip install networkx==2.8.8 torch==2.0.0+cu117 -f https://download.pytorch.org/whl/torch_stable.html
+#RUN eval "$(pyenv init -)" && pyenv global $PYTHON_VERSION && python3 -m pip install -r requirements.txt -f https://download.pytorch.org/whl/torch_stable.html
 
 ENTRYPOINT ["/entrypoint.sh"]
 
