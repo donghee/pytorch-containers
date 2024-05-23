@@ -23,7 +23,7 @@ https://bit.ly/docker-github
 
 ## Docker 소개
 - 배경 기술:  리눅스 컨테이너 LXC. 가상화 기술로 리눅스 커널에서 지원. 유저에게 독립된 리소스 환경(네임스페이스)과 관리 기능(cgroups)을 제공
-- Docker의 시작: 리눅스 컨테이너 관리 도구로 프로젝트 시작. PyCon 2013 에서 Solomon Hykes가 Docker 프로젝트  발표.  2014년 v1.0릴리즈 하면서 본격적인 사용 시작
+- Docker의 시작: 리눅스 컨테이너 관리 도구로 프로젝트 시작. PyCon 2013 에서 Solomon Hykes가  Docker 프로젝트  발표.  2014년 v1.0릴리즈 하면서 본격적인 사용 시작
 - 유명해진 이유: 마이크로 서비스 구축을 위해 컨터이너 기반의 인프라 도입
 
 ---
@@ -59,15 +59,21 @@ curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh ./get-docker.sh --dry-run
 ```
 
-유저 계정에서 docker 사용하도록 `docker` 그룹에 유저 추가
+유저 계정에서 docker를 사용하려면 `docker` 그룹에 유저 추가 필요
 ```
 sudo usermod -aG docker $USER
+```
+
+nvidia container toolkit 설치 확인
+```
+sudo docker run --rm --runtime=nvidia --gpus all nvidia/cuda:11.4.3-devel-ubuntu20.04 nvidia-smi
 ```
 
 ---
 # Docker 환경구성
 - Docker Client 자주 사용하는 명령
-- Dockerfile 읽기
+- Dockerfile 
+- Docker 사용 실습
 
 ---
 
@@ -100,7 +106,7 @@ docker build . -t '이미지 이름'
 ```
 - 도커 이미지 실행하여 컨테이너 생성
 ```
-docker run ‘이미지 이름’ ‘실행 프로그램’
+docker run '이미지 이름' '실행 프로그램'
 ```
 
 - 실행되어 있는 도커 컨테이너에 접속
@@ -137,25 +143,26 @@ docker run --rm hello
 ```
 
 ---
-## Docker `hello-world`
+## 실습: Docker `hello-world`
+
+실습: https://github.com/docker-library/hello-world
 
 ```
 docker run hello-world
 ```
-https://github.com/docker-library/hello-world
 
-컨테이너 삭제
+**컨테이너 삭제**
 ```
 docker ps -a
 docker ps -aq --filter ancestor=hello-world
 
-docker rm '컨데이터id'
+docker rm '컨테이너 id'
 
 # 이미지와 연결된 컨테이너 삭제
 docker rm -f $(docker ps -aq --filter ancestor=hello-world)
 ```
 
-이미지 삭제 
+**이미지 삭제**
 ```
 docker images
 docker rmi hello-world
@@ -168,7 +175,7 @@ docker rmi hello-world
 - pyenv: 여러개의 파이썬 버전설치, 로컬 및 글로벌 환경 설정
 
 ---
-## Dockerfile 읽기
+## 실습: Dockerfile 읽기
 
 **torch 2.0.0+cu117 가상 환경 구성**
 
@@ -208,7 +215,7 @@ print(torch.version.cuda)
 
 ---
 
-## 실습
+## 실습: torch 1.13.1 가상 환경 구성
 
 torch 2.0.0 Dockerfile을 참고하여 torch 1.13.1 가상 환경 구성하기
 
